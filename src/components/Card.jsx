@@ -1,7 +1,7 @@
-const Card = () => {
+const Card = ({ value }) => {
   return (
     <div className="card">
-      <div>DARIS</div>
+      <div>{value}</div>
       <button
         className="submit"
         onClick={() => {
