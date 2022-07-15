@@ -1,23 +1,11 @@
-const Card = ({ value }) => {
+const Card = () => {
   return (
     <div className="card">
-      <div>{value}</div>
-      <button
-        className="submit"
-        onClick={() => {
-          console.log("ELEMENT submited");
-        }}
-      >
-        Submit
-      </button>
-      <button
-        className="delete"
-        onClick={() => {
-          console.log("ELEMENT DLEETE");
-        }}
-      >
-        delete
-      </button>
+      <p>NESTO</p>
+      <div>
+        <button className="check">CEKIRAJ</button>
+        <button className="delete">delete</button>
+      </div>
     </div>
   );
 };

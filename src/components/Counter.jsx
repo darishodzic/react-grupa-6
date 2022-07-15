@@ -4,10 +4,9 @@ const Counter = () => {
   const [counter, setCounter] = useState(0);
 
   return (
-    <div className="container">
+    <div>
       <button
         onClick={() => {
-          console.log("COUNTER SHOULD COUNT Down");
           setCounter(counter - 1);
           console.log(counter);
         }}
@@ -17,21 +16,11 @@ const Counter = () => {
       <h1>{counter}</h1>
       <button
         onClick={() => {
-          console.log("COUNTER SHOULD COUNT UP");
           setCounter(counter + 1);
           console.log(counter);
         }}
       >
         +1
-      </button>
-      <button
-        onClick={() => {
-          console.log("COUNTER SHOULD COUNT UP");
-          setCounter(0);
-          console.log(counter);
-        }}
-      >
-        RESTART
       </button>
     </div>
   );
