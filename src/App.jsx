@@ -1,31 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import Card from "./components/Card";
-const App = () => {
-  const [data, setData] = useState([]);
 
-  let a = "";
+const App = () => {
+  const [facts, setFacts] = useState([]);
+  const [novaVar, setNovaVar] = useState(false);
+
+  function getFacts() {
+    fetch("https://api.github.com/users/dzemildupljak")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // setFacts(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    getFacts();
+    console.log("PRVI USEEFFCT");
+  }, []);
+
+  useEffect(() => {
+    console.log("DRUGI USEEFFCT");
+  }, [novaVar]);
+
   return (
-    <div className="container">
-      <h1>TODO LIST</h1>
-      <div className="unos">
-        <input
-          type="text"
-          onChange={(e) => {
-            a = e.target.value;
-          }}
-        />
-        <button
-          onClick={() => {
-            setData([...data, a]);
-          }}
-        >
-          Submit
-        </button>
-      </div>
-      {data.map((el) => {
-        return <Card title={el} />;
-      })}
+    <div>
+      {/* {facts.map((el) => {
+        return <h1>{el.fact}</h1>;
+      })} */}
     </div>
   );
 };
