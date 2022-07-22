@@ -1,36 +1,60 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [facts, setFacts] = useState([]);
-  const [novaVar, setNovaVar] = useState(false);
+  let formValue = {
+    name: "",
+    email: "",
+    lastName: "",
+  };
 
-  function getFacts() {
-    fetch("https://api.github.com/users/dzemildupljak")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // setFacts(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  useEffect(() => {
-    getFacts();
-    console.log("PRVI USEEFFCT");
-  }, []);
-
-  useEffect(() => {
-    console.log("DRUGI USEEFFCT");
-  }, [novaVar]);
+  const [value, setValue] = useState({
+    name: "",
+    email: "",
+    lastName: "",
+  });
 
   return (
     <div>
-      {/* {facts.map((el) => {
-        return <h1>{el.fact}</h1>;
-      })} */}
+      <input
+        type="text"
+        placeholder="firstName"
+        onChange={(e) => {
+          formValue.name = e.target.value;
+        }}
+      />
+      <input
+        type="text"
+        placeholder="lastname"
+        onChange={(e) => {
+          formValue.lastName = e.target.value;
+        }}
+      />
+      <input
+        type="text"
+        placeholder="email"
+        onChange={(e) => {
+          formValue.email = e.target.value;
+        }}
+      />
+      <button
+        onClick={() => {
+          if (formValue.name && formValue.lastName && formValue.email) {
+            console.log(formValue);
+            setValue(formValue);
+          } else {
+            console.log("Please fill all the fields");
+          }
+        }}
+      >
+        Submit
+      </button>
+
+      <div>
+        <h1>{value.name}</h1>
+        <h1>{value.lastName}</h1>
+        <h1>{value.email}</h1>
+      </div>
     </div>
   );
 };
