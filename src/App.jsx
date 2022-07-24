@@ -1,60 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import DessertCard from "./components/DessertCard";
 
 const App = () => {
-  let formValue = {
-    name: "",
-    email: "",
-    lastName: "",
+  const [desserts, setDesserts] = useState([]);
+  let inputValue = "";
+  const getDesserts = async (size) => {
+    const res = await fetch(
+      `https://random-data-api.com/api/dessert/random_dessert?size=${size}`
+    );
+    const data = await res.json();
+    setDesserts(data);
+    console.log(data);
   };
 
-  const [value, setValue] = useState({
-    name: "",
-    email: "",
-    lastName: "",
-  });
+  useEffect(() => {
+    getDesserts(100);
+  }, []);
 
   return (
     <div>
       <input
         type="text"
-        placeholder="firstName"
         onChange={(e) => {
-          formValue.name = e.target.value;
-        }}
-      />
-      <input
-        type="text"
-        placeholder="lastname"
-        onChange={(e) => {
-          formValue.lastName = e.target.value;
-        }}
-      />
-      <input
-        type="text"
-        placeholder="email"
-        onChange={(e) => {
-          formValue.email = e.target.value;
+          inputValue = Number(e.target.value);
         }}
       />
       <button
         onClick={() => {
-          if (formValue.name && formValue.lastName && formValue.email) {
-            console.log(formValue);
-            setValue(formValue);
-          } else {
-            console.log("Please fill all the fields");
-          }
+          getDesserts(inputValue);
         }}
       >
         Submit
       </button>
-
-      <div>
-        <h1>{value.name}</h1>
-        <h1>{value.lastName}</h1>
-        <h1>{value.email}</h1>
-      </div>
+      {desserts.map((dessert) => {
+        return <DessertCard des={dessert} key={dessert.uid} />;
+      })}
     </div>
   );
 };
