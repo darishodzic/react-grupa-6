@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "./Card";
 const Todo = () => {
   const [data, setData] = useState([]);
@@ -7,6 +8,7 @@ const Todo = () => {
   return (
     <div className="container">
       <h1>TODO LIST</h1>
+      <Link to={"/"}>HOME</Link>
       <form
         className="unos"
         onSubmit={(e) => {
