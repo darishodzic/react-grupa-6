@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-const Todo = () => {
-  const [data, setData] = useState([]);
 
-  let a = "";
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "ADD":
+      return [...state, action.payload];
+    case "DELETE":
+      return state.filter((el, index) => index !== action.payload);
+    default:
+      return state;
+  }
+};
+
+const Todo = () => {
+  // const [data, setData] = useState([]);
+  const [data, dispatch] = useReducer(reducer, []);
+  const [input, setInput] = useState("");
+
   return (
     <div className="container">
       <h1>TODO LIST</h1>
@@ -13,14 +26,16 @@ const Todo = () => {
         className="unos"
         onSubmit={(e) => {
           e.preventDefault();
-          setData([...data, a]);
+          dispatch({ type: "ADD", payload: input });
+          setInput("");
         }}
       >
         <input
           type="text"
           onChange={(e) => {
-            a = e.target.value;
+            setInput(e.target.value);
           }}
+          value={input}
         />
         <button type="submit">Submit</button>
       </form>
@@ -29,7 +44,7 @@ const Todo = () => {
           <Card
             title={el}
             onDelete={() => {
-              setData(data.filter((el, index) => i !== index));
+              dispatch({ type: "DELETE", payload: i });
             }}
           />
         );
