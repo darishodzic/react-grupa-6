@@ -4,15 +4,6 @@ const Card = (props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [nesto, setNesto] = useState(false);
 
-  useEffect(() => {
-    console.log("Daris");
-  }, [isChecked]);
-
-  useEffect(() => {
-    console.log("NESTO");
-  }, [nesto]);
-
-  console.log("COMPONENT RERENDERED");
   return (
     <div className={`card ${isChecked ? "checked" : ""}`}>
       <p>{props.title}</p>

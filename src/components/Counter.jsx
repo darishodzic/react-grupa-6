@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Counter = () => {
+const Counter = (props) => {
   const [counter, setCounter] = useState(0);
 
   return (
@@ -13,7 +13,7 @@ const Counter = () => {
       >
         -1
       </button>
-      <h1>{counter}</h1>
+      <h1 ref={props.counterRef}>{counter}</h1>
       <button
         onClick={() => {
           setCounter(counter + 1);

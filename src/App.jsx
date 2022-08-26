@@ -1,24 +1,31 @@
-import { useContext } from "react";
-import { Context } from "./UserContext";
+import { createRef } from "react";
+import Counter from "./components/Counter";
+import Card from "./components/Card";
+import { useState } from "react";
+import { useEffect } from "react";
+
 const App = () => {
-  const { user, setUser } = useContext(Context);
+  const counterRef = createRef(null);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("SOME url")
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setData(res);
+      });
+  }, []);
+
   return (
     <div>
-      <button
-        onClick={() => {
-          setUser(user - 1);
+      <Counter counterRef={counterRef} data={data} />
+      <Card
+        title={"Daris"}
+        onDelete={() => {
+          console.log("vrednost counter je", counterRef.current.innerText);
         }}
-      >
-        -
-      </button>
-      <h1>{user}</h1>
-      <button
-        onClick={() => {
-          setUser(user + 1);
-        }}
-      >
-        +
-      </button>
+      />
     </div>
   );
 };
